@@ -11,8 +11,8 @@
 
 ---
 
-## Storm 基础 (Basics of Storm)
-- [Javadoc][1]
+## Storm 基础篇
+- [Javadoc][1][1]
 - 基本概念
 - 系统配置
 - 消息的可靠性保证
@@ -66,5 +66,7 @@
 - 技术实现相关文档
 
 ---
+
+>[1] 说明：JavaDoc 暂时不在翻译计划之中。
 
 [1]: http://storm.apache.org/javadoc/apidocs/index.html

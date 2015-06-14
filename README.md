@@ -12,9 +12,9 @@
 ---
 
 ## Storm 基础篇
-- [Javadoc][1][1]
-- 基本概念
-- 系统配置
+- [Javadoc][1][^1]
+- [基本概念][2]
+- [配置][3]
 - 消息的可靠性保证
 - 容错性
 - 命令行操作
@@ -65,8 +65,10 @@
 - 多语言接口协议（如何为其他语言定义接口）
 - 技术实现相关文档
 
----
 
->[1] 说明：JavaDoc 暂时不在翻译计划之中。
+
+[^1]: 说明：JavaDoc 暂时不在翻译计划之中。
 
 [1]: http://storm.apache.org/javadoc/apidocs/index.html
+[2]: https://github.com/weyo/Storm-Documents/blob/master/Manual/zh/Concepts.md
+[3]: https://github.com/weyo/Storm-Documents/blob/master/Manual/zh/Configuration.md

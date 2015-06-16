@@ -15,8 +15,8 @@
 - [Javadoc][1]<sup>1</sup>
 - [基础概念][2]
 - [配置][3]
-- 消息的可靠性保证
-- 容错性
+- [消息的可靠性保障][4]
+- [容错性][5]
 - 命令行操作
 - 理解 Storm 拓扑的并行度(parallelism)概念
 - FAQ
@@ -67,8 +67,10 @@
 
 ---
 
-<sup>1</sup> 说明：JavaDoc 暂时不在翻译计划之中。
+><sup>1</sup> 说明：JavaDoc 暂时不在翻译计划之中。
 
 [1]: http://storm.apache.org/javadoc/apidocs/index.html
 [2]: https://github.com/weyo/Storm-Documents/blob/master/Manual/zh/Concepts.md
 [3]: https://github.com/weyo/Storm-Documents/blob/master/Manual/zh/Configuration.md
+[4]: https://github.com/weyo/Storm-Documents/blob/master/Manual/zh/Guaranteeing-Message-Processing
+[5]: https://github.com/weyo/Storm-Documents/blob/master/Manual/zh/Fault-Tolerance.md

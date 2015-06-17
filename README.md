@@ -17,8 +17,8 @@
 - [配置][3]
 - [消息的可靠性保障][4]
 - [容错性][5]
-- 命令行操作
-- 理解 Storm 拓扑的并行度(parallelism)概念
+- [命令行操作][6]
+- [理解 Storm 拓扑的并行度(parallelism)概念][7]
 - FAQ
 
 ---
@@ -72,5 +72,7 @@
 [1]: http://storm.apache.org/javadoc/apidocs/index.html
 [2]: https://github.com/weyo/Storm-Documents/blob/master/Manual/zh/Concepts.md
 [3]: https://github.com/weyo/Storm-Documents/blob/master/Manual/zh/Configuration.md
-[4]: https://github.com/weyo/Storm-Documents/blob/master/Manual/zh/Guaranteeing-Message-Processing
+[4]: https://github.com/weyo/Storm-Documents/blob/master/Manual/zh/Guaranteeing-Message-Processing.md
 [5]: https://github.com/weyo/Storm-Documents/blob/master/Manual/zh/Fault-Tolerance.md
+[6]: https://github.com/weyo/Storm-Documents/blob/master/Manual/zh/Command-Line-Client.md
+[7]: https://github.com/weyo/Storm-Documents/blob/master/Manual/zh/Understanding-The-Parallelism-Of-A-Storm-Topology.md

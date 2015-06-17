@@ -170,13 +170,13 @@ Acker 实际上并不会直接跟踪 tuple 树。对于一棵包含数万个 tup
 
 由于 acker 任务是轻量级的，在拓扑中你并不需要很多 acker 任务。你可以通过 Storm UI 监控他们的性能（acker 任务的 id 为“__acker”）。如果发现观察结果存在问题，你可能就需要增加更多的 acker 任务。
 
-如果你不关注消息的可靠性 —— 也就是说你不关心在失败情形下发生的 tuple 丢失 —— 那么你就可以通过不跟踪 tuple 树的处理来提升拓扑的性能。由于 tuple 树种的每个 tuple 都会带有一个应答消息，不追踪 tuple 树会使得传输的消息的数量减半。同时，下游数据流中的 id 也会变少，这样可以降低网络带宽的消耗。
+如果你不关注消息的可靠性 —— 也就是说你不关心在失败情形下发生的 tuple 丢失 —— 那么你就可以通过不跟踪 tuple 树的处理来提升拓扑的性能。由于 tuple 树中的每个 tuple 都会带有一个应答消息，不追踪 tuple 树会使得传输的消息的数量减半。同时，下游数据流中的 id 也会变少，这样可以降低网络带宽的消耗。
 
 有三种方法可以移除 Storm 的可靠性机制。第一种方法是将 Config.TOPOLOGY_ACKERS 设置为0，在这种情况下，Storm 会在 Spout 发送 tuple 之后立即调用 `ack` 方法，tuple 树叶就不会被跟踪了。
 
 第二种方法是基于消息本身移除可靠性。你可以通过在 `SpoutOutputCollector.emit` 方法中省略消息 id 来关闭 spout tuple 的跟踪功能。
 
-最后，如果你不关心拓扑中的下游 tuple 是否会失败，你可以在发送 tuple 的时候选择发送“非锚定”的（unanchored）tuple。由于这些 tuple 不会被标记到任何一个 spout tuple 中，显然在他们处理失败的时候不会引起任何 spout tuple 的重新处理。
+最后，如果你不关心拓扑中的下游 tuple 是否会失败，你可以在发送 tuple 的时候选择发送“非锚定”的（unanchored）tuple。由于这些 tuple 不会被标记到任何一个 spout tuple 中，显然在他们处理失败的时候不会引起任何 spout tuple 的重新处理（注意，在使用这种方法，如果上游有 spout 或 bolt 仍然保持可靠性机制，那么需要在 `execute` 方法之初调用 `OutputCollector.ack` 来立即响应上游的消息，否则上游组件会误认为消息没有发送成功导致所有的消息会被反复发送——译者注）。
 
 
 

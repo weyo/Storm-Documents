@@ -8,7 +8,7 @@
 2. 执行器（executors）
 3. 任务（tasks）
 
-下面是他们之间的关系的简单图示。
+下面是他们之间相互关系的简单图示。
 
 ![relationship][1]
 
@@ -16,7 +16,7 @@
 
 一个 executor 是由 worker 进程生成的一个线程。在 executor 中可能会有一个或者多个 task，这些 task 都是为同一个组件（spout 或者 bolt）服务的。
 
-task 是实际执行数据处理的最小工作单元 —— 在你的代码中实现的每个 spout 或者 bolt 都会在集群中运行很多个 task。在拓扑的整个生命周期中每个组件的 task 数量都是保持不变的，不过每个组件的 executor 数量却是有可能会随着时间变化。在默认情况下 task 的数量是和 executor 的数量一样的，也就是说，默认情况下 Storm 会在每个线程上运行一个 task。
+task 是实际执行数据处理的最小工作单元（注意，task 并不是线程） —— 在你的代码中实现的每个 spout 或者 bolt 都会在集群中运行很多个 task。在拓扑的整个生命周期中每个组件的 task 数量都是保持不变的，不过每个组件的 executor 数量却是有可能会随着时间变化。在默认情况下 task 的数量是和 executor 的数量一样的，也就是说，默认情况下 Storm 会在每个线程上运行一个 task。
 
 ## 配置拓扑的并行度（parallelism）
 
@@ -62,6 +62,8 @@ topologyBuilder.setBolt("green-bolt", new GreenBolt(), 2)
 下图显示了一个与实际应用场景很接近的简单拓扑的结构。这个拓扑由三个组件构成：一个名为 `BlueSpout` 的 spout，和两个名为 `GreenBolt` 和 `YellowBolt` 的 bolt。这些组件之间的关系是：`BlueSpout` 将它的输出发送到 `GreenBolt` 中，然后 `GreenBolt` 将消息继续发送到 `YellowBolt` 中。
 
 ![running-topology][8]
+
+>图中是一个包含有两个 worker 进程的拓扑。其中，蓝色的 `BlueSpout` 有两个 executor，每个 executor 中有一个 task，并行度为 2；绿色的 `GreenBolt` 有两个 executor，每个 executor 有两个 task，并行度也为2；而黄色的 `YellowBolt` 有 6 个 executor，每个 executor 中有一个 task，并行度为 6，因此，这个拓扑的总并行度就是 2 + 2 + 6 = 10。具体分配到每个 worker 就有 10 / 2 = 5 个 executor。
 
 上图中，`GreenBolt` 配置了 task 数，而 `BlueSpout` 和 `YellowBolt` 仅仅配置了 executor 数。下面是相关代码：
 
@@ -110,7 +112,7 @@ $ storm rebalance mytopology -n 5 -e blue-spout=3 -e yellow-bolt=10
 
 ---
 
-[1]: #
+[1]: https://raw.githubusercontent.com/weyo/Storm-Documents/master/Manual/images/fig-parallelism-1.png
 [2]: https://github.com/weyo/Storm-Documents/blob/master/Manual/zh/Configuration.md
 [3]: http://storm.apache.org/javadoc/apidocs/backtype/storm/Config.html#TOPOLOGY_WORKERS
 [4]: http://storm.apache.org/javadoc/apidocs/backtype/storm/Config.html

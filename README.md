@@ -27,10 +27,10 @@
 
 > _`Trident` 是 Storm 的一种高级操作接口，它能够提供可靠的数据流一次性处理模式、“事务型”数据持久化存储功能以及一系列数据流分析操作通用组件。_
 
-- Trident 学习指南 —— 基本概念与走查
-- Trident API 概述 —— 数据的转换与整合操作
-- Trident State —— 精确的数据一次性处理与快速、持久化的聚合方式
-- Trident Spouts —— 事务性与非事务性的数据入口
+- [Trident 教程 —— 基本概念与参考手册][9]
+- [Trident API 概述 —— 数据的转换与整合操作][10]
+- Trident State —— 恰好一次的数据处理与快速、持久化的聚合操作
+- Trident Spouts —— 事务型与非事务型数据入口
 
 ---
 
@@ -76,3 +76,6 @@
 [5]: https://github.com/weyo/Storm-Documents/blob/master/Manual/zh/Fault-Tolerance.md
 [6]: https://github.com/weyo/Storm-Documents/blob/master/Manual/zh/Command-Line-Client.md
 [7]: https://github.com/weyo/Storm-Documents/blob/master/Manual/zh/Understanding-The-Parallelism-Of-A-Storm-Topology.md
+
+[9]: https://github.com/weyo/Storm-Documents/blob/master/Manual/zh/Trident-Tutorial.md
+[10]: https://github.com/weyo/Storm-Documents/blob/master/Manual/zh/Trident-API-Overview.md

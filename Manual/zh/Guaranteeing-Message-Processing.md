@@ -48,7 +48,7 @@ _collector.emit(new Values("field1", "field2", 3) , msgId);
 
 我们再以 `KestrlSpout` 为例来看看在消息的可靠性处理中 `Spout` 做了什么。在 `KestrlSpout` 从 Kestrel 队列中取出一条消息时，可以看作它“打开”了这条消息。也就是说，这条消息实际上并没有从队列中真正地取出来，而是保持着一个“挂起”状态，等待消息处理完成的信号。在挂起状态的消息不回被发送到其他的消费者中。另外，如果消费者（客户端）断开了连接，所有处于挂起状态的消息都会重新放回到队列中。在消息“打开”的时候 Kestrel 会给客户端同时提供消息体数据和一个唯一的 id。`KestrelSpout` 在使用 `SpoutOutputCollector` 发送 tuple 的时候就会把这个唯一的 id 当作“消息 id”。一段时间之后，在 `KestrelSpout` 的 `ack` 或者 `fail` 方法被调用的时候，`KestrelSpout` 就会通过这个消息 id 向 Kestrel 请求将消息从队列中移除（对应 `ack` 的情况）或者将消息重新放回队列（对应 `fail` 的情况）。
 
-## Storm 的可靠性 API 是什么
+## Storm 的可靠性 API
 
 使用 Storm 的可靠性机制的时候你需要注意两件事：首先，在 tuple 树中创建新节点连接时务必通知 Storm；其次，在每个 tuple 处理结束的时候也必须向 Storm 发出通知。通过这两个操作，Storm 就能够检测到 tuple 树会在何时完成处理，并适时地调用 ack 或者 fail 方法。Storm 的 API 提供了一种非常精确的方式来实现着两个操作。
 
@@ -176,7 +176,7 @@ Acker 实际上并不会直接跟踪 tuple 树。对于一棵包含数万个 tup
 
 第二种方法是基于消息本身移除可靠性。你可以通过在 `SpoutOutputCollector.emit` 方法中省略消息 id 来关闭 spout tuple 的跟踪功能。
 
-最后，如果你不关心拓扑中的下游 tuple 是否会失败，你可以在发送 tuple 的时候选择发送“非锚定”的（unanchored）tuple。由于这些 tuple 不会被标记到任何一个 spout tuple 中，显然在他们处理失败的时候不会引起任何 spout tuple 的重新处理（注意，在使用这种方法，如果上游有 spout 或 bolt 仍然保持可靠性机制，那么需要在 `execute` 方法之初调用 `OutputCollector.ack` 来立即响应上游的消息，否则上游组件会误认为消息没有发送成功导致所有的消息会被反复发送——译者注）。
+最后，如果你不关心拓扑中的下游 tuple 是否会失败，你可以在发送 tuple 的时候选择发送“非锚定”的（unanchored）tuple。由于这些 tuple 不会被标记到任何一个 spout tuple 中，显然在他们处理失败的时候不会引起任何 spout tuple 的重新处理（注意，在使用这种方法时，如果上游有 spout 或 bolt 仍然保持可靠性机制，那么需要在 `execute` 方法之初调用 `OutputCollector.ack` 来立即响应上游的消息，否则上游组件会误认为消息没有发送成功导致所有的消息会被反复发送——译者注）。
 
 
 

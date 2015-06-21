@@ -240,7 +240,7 @@ mystream.project(new Fields("b", "d"))
 
 就会使得输出数据流中只包含有 ["b", "d"] 域。
 
-## 重新分区操作
+## 重分区操作
 
 重分区操作会执行一个用来改变在不同的任务间分配 tuple 的方式的函数。在重分区的过程中分区的数量也可能会发生变化（例如，重分区之后的并行度就有可能会增大）。重分区会产生一定的网络数据传输。下面是重分区操作的几个函数：
 
@@ -309,6 +309,6 @@ a” 和 “b” 域与 stream1 的 “val1” 和 “val2” 域对应；而 �
 
 
 [1]: http://storm.apache.org/documentation/Trident-state.html
-[2]: https://github.com/apache/storm/wiki/Trident-state
+[2]: http://storm.apache.org/documentation/Trident-state.html
 [3]: http://storm.apache.org/documentation/images/grouping.png
-
+[4]: https://github.com/apache/storm/blob/master/storm-core/src/jvm/storm/trident/state/map/MapState.java

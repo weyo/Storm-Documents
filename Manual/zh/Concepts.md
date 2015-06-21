@@ -15,7 +15,7 @@ Storm 系统中包含以下几个基本概念：
 
 ---
 
-# 拓扑（Topologies）
+## 拓扑（Topologies）
 
 Storm 的拓扑是对实时计算应用逻辑的封装，它的作用与 MapReduce 的任务（Job）很相似，区别在于 MapReduce 的一个 Job 在得到结果之后总会结束，而拓扑会一直在集群中运行，直到你手动去终止它。拓扑还可以理解成由一系列通过数据流（Stream Grouping）相互关联的 Spout 和 Bolt 组成的的拓扑结构。Spout 和 Bolt 称为拓扑的组件（Component）。我们会在后文中给出这些概念的解释。
 
@@ -25,7 +25,7 @@ Storm 的拓扑是对实时计算应用逻辑的封装，它的作用与 MapRedu
 - [在生产环境中运行拓扑][2]
 - [本地模式][3]：通过本文学习如何在本地模式中开发、测试拓扑
 
-# 数据流（Streams）
+## 数据流（Streams）
 
 数据流（Streams）是 Storm 中最核心的抽象概念。一个数据流指的是在分布式环境中并行创建、处理的一组元组（tuple）的无界序列。数据流可以由一种能够表述数据流中元组的域（fields）的模式来定义。在默认情况下，元组（tuple）包含有整型（Integer）数字、长整型（Long）数字、短整型（Short）数字、字节（Byte）、双精度浮点数（Double）、单精度浮点数（Float）、布尔值以及字节数组等基本类型对象。当然，你也可以通过定义可序列化的对象来实现自定义的元组类型。
 
@@ -39,7 +39,7 @@ Storm 的拓扑是对实时计算应用逻辑的封装，它的作用与 MapRedu
 - [ISerialization][6]：自定义的序列化模型必须实现该接口
 - [CONFIG.TOPOLOGY_SERIALIZATIONS][7]：自定义的序列化模型可以通过这个配置项实现注册
 
-# 数据源（Spouts）
+## 数据源（Spouts）
 
 数据源（Spout）是拓扑中数据流的来源。一般 Spout 会从一个外部的数据源读取元组然后将他们发送到拓扑中。根据需求的不同，Spout 既可以定义为**可靠的**数据源，也可以定义为**不可靠的**数据源。一个可靠的 Spout 能够在它发送的元组处理失败时重新发送该元组，以确保所有的元组都能得到正确的处理；相对应的，不可靠的 Spout 就不会在元组发送之后对元组进行任何其他的处理。
 
@@ -54,7 +54,7 @@ Spout 中另外两个关键方法是 `ack` 和 `fail`，他们分别用于在 St
 - [IRichSpout][9]：这是实现 Spout 的接口
 - [消息的可靠性处理][10]
 
-# 数据流处理组件（Bolts）
+## 数据流处理组件（Bolts）
 
 拓扑中所有的数据处理均是由 Bolt 完成的。通过数据过滤（filtering）、函数处理（functions）、聚合（aggregations）、联结（joins）、数据库交互等功能，Bolt 几乎能够完成任何一种数据处理需求。
 
@@ -75,7 +75,7 @@ Bolt 的关键方法是 `execute` 方法。`execute` 方法负责接收一个元
 - [OutputCollector][11]：Bolt 使用此类来发送数据流
 - [消息的可靠性处理][10]
 
-# 数据流分组（Stream groupings）
+## 数据流分组（Stream groupings）
 
 为拓扑中的每个 Bolt 的确定输入数据流是定义一个拓扑的重要环节。数据流分组定义了在 Bolt 的不同任务（tasks）中划分数据流的方式。
 
@@ -96,7 +96,7 @@ Bolt 的关键方法是 `execute` 方法。`execute` 方法负责接收一个元
 - [InputDeclarer][12]：在 `TopologyBuilder` 中调用 `setBolt` 方法时会返回这个对象的实例，通过该对象就可以定义 Bolt 的输入数据流以及数据流的分组方式
 - [CoordinatedBolt][20]：这个 Bolt 主要用于分布式 RPC 拓扑，其中大量使用了直接数据流与直接分组模型
 
-# 可靠性（Reliability）
+## 可靠性（Reliability）
 
 Storm 可以通过拓扑来确保每个发送的元组都能得到正确处理。通过跟踪由 Spout 发出的每个元组构成的元组树可以确定元组是否已经完成处理。每个拓扑都有一个“消息延时”参数，如果 Storm 在延时时间内没有检测到元组是否处理完成，就会将该元组标记为处理失败，并会在稍后重新发送该元组。
 
@@ -104,11 +104,11 @@ Storm 可以通过拓扑来确保每个发送的元组都能得到正确处理�
 
 关于可靠性保障的更多内容可以参考这篇文章：[消息的可靠性处理][10]。
 
-# 任务（Tasks）
+## 任务（Tasks）
 
 在 Storm 集群中每个 Spout 和 Bolt 都由若干个任务（tasks）来执行。每个任务都与一个执行线程相对应。数据流分组可以决定如何由一组任务向另一组任务发送元组。你可以在 [TopologyBuilder][1] 的 `setSpout` 方法和 `setBolt` 方法中设置 Spout/Bolt 的并行度。
 
-# 工作进程（Workers）
+## 工作进程（Workers）
 
 拓扑是在一个或多个工作进程（worker processes）中运行的。每个工作进程都是一个实际的 JVM 进程，并且执行拓扑的一个子集。例如，如果拓扑的并行度定义为300，工作进程数定义为50，那么每个工作进程就会执行6个任务（进程内部的线程）。Storm 会在所有的 worker 中分散任务，以便实现集群的负载均衡。
 
@@ -130,7 +130,7 @@ Storm 可以通过拓扑来确保每个发送的元组都能得到正确处理�
 [7]: http://storm.apache.org/javadoc/apidocs/backtype/storm/Config.html#TOPOLOGY_SERIALIZATIONS
 [8]: http://storm.apache.org/javadoc/apidocs/backtype/storm/spout/SpoutOutputCollector.html
 [9]: http://storm.apache.org/javadoc/apidocs/backtype/storm/topology/IRichSpout.html
-[10]: http://storm.apache.org/documentation/Guaranteeing-message-processing.html
+[10]: https://github.com/weyo/Storm-Documents/blob/master/Manual/zh/Guaranteeing-Message-Processing.md
 [11]: http://storm.apache.org/javadoc/apidocs/backtype/storm/task/OutputCollector.html
 [12]: http://storm.apache.org/javadoc/apidocs/backtype/storm/topology/InputDeclarer.html
 [13]: http://storm.apache.org/javadoc/apidocs/backtype/storm/topology/IBasicBolt.html

@@ -47,15 +47,16 @@
 ## Storm 中级篇
 
 - 序列化
-- 通用模式
+- [常用模式][19]
 - Clojure DSL
 - 使用非 JVM 语言开发
 - 分布式 RPC
 - 事务型拓扑<sup>2</sup>
 - Storm 与 Kestrel
+- 直接数据流组<sup>3</sup>
 - Hooks
 - 软件度量
-- Trident tuple 的生命周期<sup>3</sup>
+- Trident tuple 的生命周期<sup>4</sup>
 
 ---
 
@@ -67,12 +68,11 @@
 
 ---
 
->## 说明
-><sup>1</sup> JavaDoc 暂时不在翻译计划之中。
->
-><sup>2</sup> 事务型拓扑已经由 Trident 实现，之前的实现已经被标记为 `@Deprecated`，这里不再讨论。
->
-><sup>3</sup> 本文官方文档暂未提供
+>## 说明  
+<sup>1</sup> JavaDoc 暂时不在翻译计划之中。  
+<sup>2</sup> 事务型拓扑已经由 Trident 实现，之前的实现已经被标记为 `@Deprecated`，这里不再讨论。  
+<sup>3</sup> 本文官方文档暂未提供。  
+<sup>4</sup> 本文官方文档暂未提供。  
 
 
 [1]: http://storm.apache.org/javadoc/apidocs/index.html
@@ -87,3 +87,10 @@
 [10]: https://github.com/weyo/Storm-Documents/blob/master/Manual/zh/Trident-API-Overview.md
 [11]: https://github.com/weyo/Storm-Documents/blob/master/Manual/zh/Trident-State.md
 [12]: https://github.com/weyo/Storm-Documents/blob/master/Manual/zh/Trident-Spouts.md
+
+
+
+
+
+
+[19]: https://github.com/weyo/Storm-Documents/blob/master/Manual/zh/Common-Topology-Patterns.md

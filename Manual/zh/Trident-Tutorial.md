@@ -11,7 +11,7 @@ Trident 是 Storm 的一种高度抽象的实时计算模型，它可以将高�
 
 为了实现这个目的，这个例子将会从下面的数据源中无限循环地读取语句数据流：
 
-```
+```java
 FixedBatchSpout spout = new FixedBatchSpout(new Fields("sentence"), 3,
                new Values("the cow jumped over the moon"),
                new Values("the man went to the store and bought some candy"),
@@ -22,7 +22,7 @@ spout.setCycle(true);
 
 这个 Spout 会循环地访问语句集来生成语句数据流。下面的代码就是用来实现计算过程中的单词数据流统计部分：
 
-```
+```java
 TridentTopology topology = new TridentTopology();        
 TridentState wordCounts =
      topology.newStream("spout1", spout)
@@ -44,7 +44,7 @@ Trident 为这些小块提供了一个完全成熟的批处理 API。这个 API 
 
 再回到这个例子中，输入数据源 spout 发送出了一个名为 “sentence” 的数据流。接下来拓扑中定义了一个 `Split` 方法用于处理流中的每个 tuple，这个方法接收 “sentence” 域并将其分割成若干个单词。每个 sentence tuple 都会创建很多个单词 tuple —— 例如 “the cow jumped over the moon” 这个句子就会创建 6 个 “word” tuple，下面是 `Split` 的定义：
 
-```
+```java
 public class Split extends BaseFunction {
    public void execute(TridentTuple tuple, TridentCollector collector) {
        String sentence = tuple.getString(0);
@@ -59,7 +59,7 @@ public class Split extends BaseFunction {
 
 拓扑的剩余部分负责统计单词的数量并将结果保存到持久化存储中。首先，数据流根据 “word” 域分组，然后使用 `Count` 聚合器持续聚合每个小组。`persistentAggregate` 方法用于存储并更新 state 源中的聚合结果。在这个例子中，单词的数量结果是保存在内存中的，不过可以根据需要切换到 Memcached、Cassandra 或者其他持久化存储中。切换存储模型也非常简单，只需要像下面这样（使用 [trident-memcached][2] 修改 `persistentAggregate` 行中的一个参数（其中，“serverLocations” 是 Memcached 集群的地址/端口列表）即可：
 
-```
+```java
 .persistentAggregate(MemcachedState.transactional(serverLocations), new Count(), new Fields("count"))
 ```
 
@@ -71,7 +71,7 @@ Trident 的另一个很酷的特性就是它支持完全容错性和恰好一次
 
 接下来我们就可以在拓扑中实现 word count 的一个低延时分布式查询。这个查询接收一个由空格分隔的单词列表作为参数，然后返回这些单词的数量统计结果。这个查询看上去与普通的 RPC 调用并没有什么分别，不过在后台他们是并发执行的。下面是一个实现这种查询的例子：
 
-```
+```java
 DRPCClient client = new DRPCClient("drpc.server.location", 3772);
 System.out.println(client.execute("words", "cat dog the man");
 // prints the JSON-encoded result, e.g.: "[[5078]]"
@@ -81,7 +81,7 @@ System.out.println(client.execute("words", "cat dog the man");
 
 拓扑中的分布式查询的实现是这样的：
 
-```
+```java
 topology.newDRPCStream("words")
        .each(new Fields("args"), new Split(), new Fields("word"))
        .groupBy(new Fields("word"))
@@ -110,7 +110,7 @@ Trident 很聪明，它知道怎么以最好的性能运行拓扑。在这个拓
 
 这个拓扑会从两个 state 源中读取数据。其中一个数据库建立了 URL 和转发了该 URL 的用户列表的关联表。另一个数据库中建立了用户和用户的关注者列表的关联表。拓扑的定义是这样的：
 
-```
+```java
 TridentState urlToTweeters =
        topology.newStaticState(getUrlToTweetersState());
 TridentState tweetersToFollowers =
@@ -137,7 +137,7 @@ topology.newDRPCStream("reach")
 
 再接下来，关注者就会被放入一个单独的 set 集合中用于计数。这里包含两个步骤。首先，会根据 “follower” 域来执行 “group by” 分组操作，并在每个组上运行 `One` 聚合器。“One”聚合器的作用仅仅是为每个组发送一个包含数字 1 的 tuple。然后，就可以通过统计这些 one 结果来得到关注者 set 的大小，也就是真正的关注者数量。下面是 “One” 聚合器的定义：
 
-```
+```java
 public class One implements CombinerAggregator<Integer> {
    public Integer init(TridentTuple tuple) {
        return 1;
@@ -163,13 +163,13 @@ Trident 的数据模型 TridentTuple 是一个指定的值列表。在一个拓�
 
 我们来看看这样一个场景。假设你有一个名为 “stream” 的数据流，其中包含域 “x”、“y” 和 “z”。如果要运行一个接收 “y” 作为输入的过滤器 MyFilter，你可以这样写：
 
-```
+```java
 stream.each(new Fields("y"), new MyFilter())
 ```
 
 再假设 MyFilter 的实现是这样的：
 
-```
+```java
 public class MyFilter extends BaseFilter {
    public boolean isKeep(TridentTuple tuple) {
        return tuple.getInteger(0) < 10;
@@ -181,7 +181,7 @@ public class MyFilter extends BaseFilter {
 
 我们再来看看 “function fields” 是怎么工作的。假设你有这样一个函数：
 
-```
+```java
 public class AddAndMultiply extends BaseFunction {
    public void execute(TridentTuple tuple, TridentCollector collector) {
        int i1 = tuple.getInteger(0);
@@ -193,7 +193,7 @@ public class AddAndMultiply extends BaseFunction {
 
 这个函数接收两个数字作为输入，然后发送出两个新值：分别是两个数字的和和乘积。再假定你有一个包含 “x”、“y” 和 “z” 域的数据流，你可以这样使用这个函数：
 
-```
+```java
 stream.each(new Fields("x", "y"), new AddAndMultiply(), new Fields("added", "multiplied"));
 ```
 
@@ -201,7 +201,7 @@ stream.each(new Fields("x", "y"), new AddAndMultiply(), new Fields("added", "mul
 
 另一方面，通过聚合器，函数域也可以替换输入 tuple 的域。假如你有一个包含域 “val1” 和域 “val2” 的数据流，通过这样的操作：
 
-```
+```java
 stream.aggregate(new Fields("val2"), new Sum(), new Fields("sum"))
 ```
 
@@ -209,7 +209,7 @@ stream.aggregate(new Fields("val2"), new Sum(), new Fields("sum"))
 
 通过数据流分组，输出就可以同时包含用于分组的域以及由聚合器发送的域。举个例子：
 
-```
+```java
 stream.groupBy(new Fields("val1"))
      .aggregate(new Fields("val2"), new Sum(), new Fields("sum"))
 ```

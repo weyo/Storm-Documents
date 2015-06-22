@@ -49,7 +49,7 @@ task 是实际执行数据处理的最小工作单元（注意，task 并不是�
 
 以下是配置上述参数的一个简单示例代码：
 
-```
+```java
 topologyBuilder.setBolt("green-bolt", new GreenBolt(), 2)
                .setNumTasks(4)
                .shuffleGrouping("blue-spout);
@@ -67,7 +67,7 @@ topologyBuilder.setBolt("green-bolt", new GreenBolt(), 2)
 
 上图中，`GreenBolt` 配置了 task 数，而 `BlueSpout` 和 `YellowBolt` 仅仅配置了 executor 数。下面是相关代码：
 
-```
+```java
 Config conf = new Config();
 conf.setNumWorkers(2); // use two worker processes
 
@@ -102,7 +102,7 @@ Storm 的一个很有意思的特点是你可以随时增加或者减少 worker 
 
 下面是使用 CLI 工具的一个简单示例：
 
-```
+```shell
 ## 重新配置拓扑 "mytopology"，使得该拓扑拥有 5 个 worker processes，
 ## 另外，配置名为 "blue-spout" 的 spout 使用 3 个 executor，
 ## 配置名为 "yellow-bolt" 的 bolt 使用 10 个 executor。

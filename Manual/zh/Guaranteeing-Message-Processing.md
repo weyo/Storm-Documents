@@ -6,7 +6,7 @@ Storm 能够保证每一个由 Spout 发送的消息都能够得到完整地处�
 
 一个从 spout 中发送出的 tuple 会产生上千个基于它创建的 tuples。例如，有这样一个 word-count 拓扑：
 
-```
+```java
 TopologyBuilder builder = new TopologyBuilder();
 builder.setSpout("sentences", new KestrelSpout("kestrel.backtype.com",
                                                22133,
@@ -28,7 +28,7 @@ builder.setBolt("count", new WordCount(), 20)
 
 为了理解这个问题，让我们先了解一下 tuple 的生命周期。下面是定义 spout 的接口（可以在 [Javadoc][3] 中查看更多细节信息）：
 
-```
+```java
 public interface ISpout extends Serializable {
     void open(Map conf, TopologyContext context, SpoutOutputCollector collector);
     void close();
@@ -40,7 +40,7 @@ public interface ISpout extends Serializable {
 
 首先，通过调用 `Spout` 的 `nextTuple` 方法，Storm 向 `Spout` 请求一个 tuple。`Spout` 会使用 `open` 方法中提供的 `SpoutOutputCollector` 向它的一个输出数据流中发送一个 tuple。在发送 tuple 的时候，`Spout` 会提供一个 “消息 id”，这个 id 会在后续过程中用于识别 tuple。例如，上面的 `KestrelSpout` 就是从一个 kestrel 队列中读取一条消息，然后再发送一条带有“消息 id”的消息，这个 id 是由 Kestrel 提供的。使用 `SpoutOutputCollector` 发送消息一般是这样的形式：
 
-```
+```java
 _collector.emit(new Values("field1", "field2", 3) , msgId);
 ```
 
@@ -54,7 +54,7 @@ _collector.emit(new Values("field1", "field2", 3) , msgId);
 
 Storm 中指定 tuple 树中的一个连接称为“锚定”（anchoring）。锚定是在发送新 tuple 的同时发生的。让我们以下面的 Bolt 为例说明这一点，这个 Bolt 将一个包含句子的 tuple 分割成若干个单词 tuple：
 
-```
+```java
 public class SplitSentence extends BaseRichBolt {
         OutputCollector _collector;
 
@@ -78,7 +78,7 @@ public class SplitSentence extends BaseRichBolt {
 
 通过将输入 tuple 指定为 `emit` 方法的第一个参数，每个单词 tuple 都被“锚定”了。这样，如果单词 tuple 在后续处理过程中失败了，作为这棵 tuple 树的根节点的原始 Spout tuple 就会被重新处理。相对应的，如果这样发送 tuple：
 
-```
+```java
 _collector.emit(new Values(word));
 ```
 
@@ -86,7 +86,7 @@ _collector.emit(new Values(word));
 
 一个输出 tuple 可以被锚定到多个输入 tuple 上，这在流式连接或者聚合操作时很有用。显然，一个多锚定的 tuple 失败会导致 Spout 中多个 tuple 的重新处理。多锚定操作是通过指定一个 tuple 列表而不是单一的 tuple 来实现的，如下面的例子所示：
 
-```
+```java
 List<Tuple> anchors = new ArrayList<Tuple>();
 anchors.add(tuple1);
 anchors.add(tuple2);
@@ -107,7 +107,7 @@ Storm 的程序实现既支持对树的处理，同样也支持对 DAG 的处理
 
 Bolt 处理 tuple 的一种通用模式是在 `execute` 方法中读取输入 tuple、发送出基于输入 tuple 的新 tuple，然后在方法末尾对 tuple 进行应答。大部分 Bolt 都会使用这样的过程。这些 Bolt 大多属于过滤器或者简单的处理函数一类。Storm 有一个可以简化这种操作的简便接口，称为 `BasicBolt`。例如，如果使用 `BasicBolt`，`SplitSentence` 的例子可以这样写：
 
-```
+```java
 public class SplitSentence extends BaseBasicBolt {
         public void execute(Tuple tuple, BasicOutputCollector collector) {
             String sentence = tuple.getString(0);

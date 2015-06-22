@@ -18,7 +18,7 @@ Trident 中有 5 类操作：
 
 函数负责接收一个输入域的集合并选择输出或者不输出 tuple。输出 tuple 的域会被添加到原始数据流的输入域中。如果一个函数不输出 tuple，那么原始的输入 tuple 就会被直接过滤掉。否则，每个输出 tuple 都会复制一份输入 tuple 。假设你有下面这样的函数：
 
-```
+```java
 public class MyFunction extends BaseFunction {
     public void execute(TridentTuple tuple, TridentCollector collector) {
         for(int i=0; i < tuple.getInteger(0); i++) {
@@ -54,7 +54,7 @@ mystream.each(new Fields("b"), new MyFunction(), new Fields("d")))
 
 过滤器负责判断输入的 tuple 是否需要保留。以下面的过滤器为例：
 
-```
+```java
 public class MyFilter extends BaseFilter {
     public boolean isKeep(TridentTuple tuple) {
         return tuple.getInteger(0) == 1 && tuple.getInteger(1) == 2;
@@ -64,7 +64,7 @@ public class MyFilter extends BaseFilter {
 
 通过使用这段代码：
 
-```
+```java
 mystream.each(new Fields("b", "a"), new MyFilter())
 ```
 
@@ -124,7 +124,7 @@ Storm 有三个用于定义聚合器的接口：`CombinerAggregator`，`ReducerA
 
 这是 `CombinerAggregator` 接口：
 
-```
+```java
 public interface CombinerAggregator<T> extends Serializable {
     T init(TridentTuple tuple);
     T combine(T val1, T val2);
@@ -134,7 +134,7 @@ public interface CombinerAggregator<T> extends Serializable {
 
 `CombinerAggregator` 会将带有一个域的一个单独的 tuple 返回作为输出。`CombinerAggregator` 会在每个输入 tuple 上运行初始化函数，然后使用组合函数来组合所有输入的值。如果在某个分区中没有 tuple， `CombinerAggregator` 就会输出 `zero` 方法的结果。例如，下面是 `Count` 的实现代码：
 
-```
+```java
 public class Count implements CombinerAggregator<Long> {
     public Long init(TridentTuple tuple) {
         return 1L;
@@ -154,7 +154,7 @@ public class Count implements CombinerAggregator<Long> {
 
 `ReducerAggregator` 的接口实现是这样的：
 
-```
+```java
 public interface ReducerAggregator<T> extends Serializable {
     T init();
     T reduce(T curr, TridentTuple tuple);
@@ -163,7 +163,7 @@ public interface ReducerAggregator<T> extends Serializable {
 
 `ReducerAggregator` 会使用 `init` 方法来产生一个初始化的值，然后使用该值对每个输入 tuple 进行遍历，并最终生成并输出一个单独的 tuple，这个 tuple 中就包含有我们需要的计算结果值。例如，下面是将 Count 定义为 `ReducerAggregator` 的代码：
 
-```
+```java
 public class Count implements ReducerAggregator<Long> {
     public Long init() {
         return 0L;
@@ -179,7 +179,7 @@ public class Count implements ReducerAggregator<Long> {
 
 最常用的聚合器接口还是下面的 `Aggregator` 接口：
 
-```
+```java
 public interface Aggregator<T> extends Operation {
     T init(Object batchId, TridentCollector collector);
     void aggregate(T state, TridentTuple tuple, TridentCollector collector);
@@ -195,7 +195,7 @@ public interface Aggregator<T> extends Operation {
 
 下面是使用 Count 作为聚合器的代码：
 
-```
+```java
 public class CountAgg extends BaseAggregator<CountState> {
     static class CountState {
         long count = 0;
@@ -217,7 +217,7 @@ public class CountAgg extends BaseAggregator<CountState> {
 
 有时你可能会需要同时执行多个聚合操作。这个过程叫做链式处理，可以使用下面这样的代码来实现：
 
-```
+```java
 mystream.chainedAgg()
         .partitionAggregate(new Count(), new Fields("count"))
         .partitionAggregate(new Fields("b"), new Sum(), new Fields("sum"))
@@ -234,7 +234,7 @@ stateQuery 与 partitionPersist 会分别查询、更新 state 数据源。你�
 
 `projection` 方法只会保留操作中指定的域。如果你有一个带有 ["a", "b", "c", "d"] 域的数据流，通过执行这段代码：
 
-```
+```java
 mystream.project(new Fields("b", "d"))
 ```
 
@@ -259,7 +259,7 @@ Trident 使用 aggregate 方法和 persistentAggregate 方法来对数据流进�
 
 下面是一个使用 aggregate 来获取一个 batch 的全局计数值的例子：
 
-```
+```java
 mystream.aggregate(new Count(), new Fields("count"))
 ```
 
@@ -281,7 +281,7 @@ mystream.aggregate(new Count(), new Fields("count"))
 
 Trident API 的最后一部分是联结不同的数据流的操作。联结数据流最简单的方式就是将所有的数据流融合到一个流中。你可以使用 TridentTopology 的 merge 方法实现该操作，比如这样：
 
-```
+```java
 topology.merge(stream1, stream2, stream3);
 ```
 
@@ -291,7 +291,7 @@ Trident 会将融合后的新数据流的域命名为为第一个数据流的输
 
 下面是两个流的 join 操作的示例，其中一个流含有 ["key", "val1", "val2"] 域，另外一个流含有 ["x", "val1"] 域：
 
-```
+```java
 topology.join(stream1, new Fields("key"), stream2, new Fields("x"), new Fields("key", "a", "b", "c"));
 ```
 

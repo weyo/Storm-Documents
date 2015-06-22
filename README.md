@@ -30,7 +30,7 @@
 - [Trident 教程 —— 基本概念与参考手册][9]
 - [Trident API 概述 —— 数据的转换与整合操作][10]
 - [Trident State —— 恰好一次的数据处理与快速、持久化的聚合操作][11]
-- Trident Spouts —— 事务型与非事务型数据入口
+- [Trident Spouts —— 事务型与非事务型数据入口][12]
 
 ---
 
@@ -55,7 +55,7 @@
 - Storm 与 Kestrel
 - Hooks
 - 软件度量
-- 一个 trident 元组的生命周期
+- Trident tuple 的生命周期<sup>3</sup>
 
 ---
 
@@ -68,8 +68,11 @@
 ---
 
 >## 说明
-<sup>1</sup> JavaDoc 暂时不在翻译计划之中。
-<sup>2</sup> 事务型拓扑已经由 Trident 实现，之前的实现已经被标记为 `@Deprecated`，这里不再讨论。
+><sup>1</sup> JavaDoc 暂时不在翻译计划之中。
+>
+><sup>2</sup> 事务型拓扑已经由 Trident 实现，之前的实现已经被标记为 `@Deprecated`，这里不再讨论。
+>
+><sup>3</sup> 本文官方文档暂未提供
 
 
 [1]: http://storm.apache.org/javadoc/apidocs/index.html
@@ -83,4 +86,4 @@
 [9]: https://github.com/weyo/Storm-Documents/blob/master/Manual/zh/Trident-Tutorial.md
 [10]: https://github.com/weyo/Storm-Documents/blob/master/Manual/zh/Trident-API-Overview.md
 [11]: https://github.com/weyo/Storm-Documents/blob/master/Manual/zh/Trident-State.md
-
+[12]: https://github.com/weyo/Storm-Documents/blob/master/Manual/zh/Trident-Spouts.md

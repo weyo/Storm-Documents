@@ -1,6 +1,6 @@
 # Trident State
 
-Trident 包含对状态化的数据源进行读取和写入操作的一级抽象。这个状态（state）既可以保存在拓扑内部（保存在内存中并通过 HDFS 来实现备份），也可以存入像 Memcached 或者 Cassandra 这样的外部数据库中。对于 Trident API 而言，这两种机制并没有任何分别。
+Trident 中含有对状态化（stateful）的数据源进行读取和写入操作的一级抽象封装工具。这个所谓的状态（state）既可以保存在拓扑内部（保存在内存中并通过 HDFS 来实现备份），也可以存入像 Memcached 或者 Cassandra 这样的外部数据库中。而对于 Trident API 而言，这两种机制并没有任何区别。
 
 Trident 使用一种容错性的方式实现对 state 的管理，这样，即使在发生操作失败或者重试的情况下状态的更新操作仍然是幂等的。基于这个机制，每条消息都可以看作被恰好处理了一次，然后你就可以很容易地推断出 Trident 拓扑的状态。
 
@@ -119,7 +119,7 @@ apple => [count=10, txid=2]
 
 从上文的描述中你已经了解到了恰好一次的消息执行语义的原理是多么的复杂。不过作为用户你并不需要处理这些复杂的 txid 比对、多值存储等操作，Trident 已经在 State 中封装了所有的容错性处理逻辑，你只需要像下面这样写代码即可：
 
-```
+```java
 TridentTopology topology = new TridentTopology();        
 TridentState wordCounts =
       topology.newStream("spout1", spout)
@@ -174,7 +174,7 @@ public class LocationDBFactory implements StateFactory {
 
 Trident 提供了一个用于查询 state 数据源的 `QueryFunction` 接口，以及一个用于更新 state 数据源的 `StateUpdater` 接口。例如，我们可以写一个查询 LocationDB 中的用户地址信息的 “QueryLocation”。让我们从你在拓扑中使用这个操作的方式开始。假如在拓扑中需要读取输入流中的 userid 信息：
 
-```
+```java
 TridentTopology topology = new TridentTopology();
 TridentState locations = topology.newStaticState(new LocationDBFactory());
 topology.newStream("myspout", spout)
@@ -203,7 +203,7 @@ public class QueryLocation extends BaseQueryFunction<LocationDB, String> {
 
 你会发现这段代码并没有发挥出 Trident 批处理的优势，因为这段代码仅仅一次查询一下 LocationDB。所以，实现 LocationDB 的更好的方式应该是这样的：
 
-```
+```java
 public class LocationDB implements State {
     public void beginCommit(Long txid) {    
     }
@@ -223,7 +223,7 @@ public class LocationDB implements State {
 
 然后，你可以这样实现 `QueryLocation` 方法：
 
-```
+```java
 public class QueryLocation extends BaseQueryFunction<LocationDB, String> {
     public List<String> batchRetrieve(LocationDB state, List<TridentTuple> inputs) {
         List<Long> userIds = new ArrayList<Long>();
@@ -243,7 +243,7 @@ public class QueryLocation extends BaseQueryFunction<LocationDB, String> {
 
 你需要使用 `StateUpdater` 接口来更新 state。下面是一个更新 LocationDB 的地址信息的 StateUpdater 实现：
 
-```
+```java
 public class LocationUpdater extends BaseStateUpdater<LocationDB> {
     public void updateState(LocationDB state, List<TridentTuple> tuples, TridentCollector collector) {
         List<Long> ids = new ArrayList<Long>();
@@ -259,7 +259,7 @@ public class LocationUpdater extends BaseStateUpdater<LocationDB> {
 
 然后你就可以在 Trident 拓扑中这样使用这个操作：
 
-```
+```java
 TridentTopology topology = new TridentTopology();
 TridentState locations = 
     topology.newStream("locations", locationsSpout)
@@ -276,7 +276,7 @@ TridentState locations =
 
 Trident 使用一个称为 `persistentAggregate` 的方法来更新 State。你已经在前面的数据流单词统计的例子里见过了这个方法，这里再写一遍：
 
-```
+```java
 TridentTopology topology = new TridentTopology();        
 TridentState wordCounts =
       topology.newStream("spout1", spout)
@@ -287,7 +287,7 @@ TridentState wordCounts =
 
 partitionPersist 是一个接收 Trident 聚合器作为参数并对 state  数据源进行更新的方法，persistentAggregate 就是构建于 partitionPersist 上层的一个编程抽象。在这个例子里，由于是一个分组数据流（grouped stream），Trident 需要你提供一个实现 `MapState` 接口的 state。被分组的域就是 state 中的 key，而聚合的结果就是 state 中的 value。`MapState` 接口是这样的：
 
-```
+```java
 public interface MapState<T> extends State {
     List<T> multiGet(List<List<Object>> keys);
     List<T> multiUpdate(List<List<Object>> keys, List<ValueUpdater> updaters);
@@ -297,7 +297,7 @@ public interface MapState<T> extends State {
 
 而当你在非分组数据流上执行聚合操作时（全局聚合操作），Trident 需要你提供一个实现了 `Snapshottable` 接口的对象：
 
-```
+```java
 public interface Snapshottable<T> extends State {
     T get();
     T update(ValueUpdater updater);
@@ -311,7 +311,7 @@ public interface Snapshottable<T> extends State {
 
 实现 `MapState` 接口非常简单，Trident 几乎已经为你做好了所有的准备工作。`OpaqueMap`、`TransactionalMap`、与 `NonTransactionalMap` 类都分别实现了各自的容错性语义。你只需要为这些类提供一个用于对不同的 key/value 进行 multiGets 与 multiPuts 处理的 IBackingMap 实现类。`IBackingMap` 接口是这样的：
 
-```
+```java
 public interface IBackingMap<T> {
     List<T> multiGet(List<List<Object>> keys); 
     void multiPut(List<List<Object>> keys, List<T> vals); 

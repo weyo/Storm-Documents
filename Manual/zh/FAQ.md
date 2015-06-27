@@ -84,7 +84,7 @@ Trident spout 实际上是通过 Storm 的 bolt 运行的。`MasterBatchCoordina
 
 实际上，trident batch interval 有两个用处。首先，它可以用于减缓 spout 从远程数据源获取数据的速度，但这不会影响数据处理的效率。例如，对于一个从给定的 S3 存储区中读取批量上传文件并按行发送数据的 spout，我们就不希望它经常触发 S3 的阈值，因为文件要隔几分钟才会上传一次，而且每个 batch 也需要花费一定的时间来执行。
 
-另一个用处是限制启动期间或者突发数据负载情况下内部消息队列的负载压力。如果 spout 突然活跃起来，并向系统中挤入了 10 个 batch 的记录，那么可能会有从 batch7 开始的大量不紧急的 tuple 堵塞住传输缓冲区，并且阻塞了从 batch3 中的 tuple（甚至可能包含 batch3 中的部分旧 tuple）的 commit 过程<sup>*</sup>。对于这种情况，我们的解决方法就是将 trident batch interval 设置为正常的端到端处理时延的一半左右 —— 也就是说如果需要花费 600 ms 的时间处理一个 batch，那么就可以每 300 ms 处理一个 batch。
+另一个用处是限制启动期间或者突发数据负载情况下内部消息队列的负载压力。如果 spout 突然活跃起来，并向系统中挤入了 10 个 batch 的记录，那么可能会有从 batch7 开始的大量不紧急的 tuple 堵塞住传输缓冲区，并且阻塞了从 batch3 中的 tuple（甚至可能包含 batch3 中的部分旧 tuple）的 commit 过程<sup>#</sup>。对于这种情况，我们的解决方法就是将 trident batch interval 设置为正常的端到端处理时延的一半左右 —— 也就是说如果需要花费 600 ms 的时间处理一个 batch，那么就可以每 300 ms 处理一个 batch。
 
 注意，这个 300 ms 仅仅是一个上限值，而不是额外增加的延时时间，如果你的 batch 需要花费 258 ms 来运行，那么 Trident 就只会延时等待 42 ms。
 
@@ -94,7 +94,7 @@ Trident 本身不会对 batch 进行限制。不过如果使用 Kafka 的相关 
 
 ### 怎样重新设置 batch 的大小？
 
-Trident 的 batch 在某种意义上是一种过载的设施。batch 大小与 partition 的数量均受限于或者是可以用于定义<sup>*</sup>：
+Trident 的 batch 在某种意义上是一种过载的设施。batch 大小与 partition 的数量均受限于或者是可以用于定义<sup>#</sup>：
 
 1. 事务安全单元（一段时间内存在风险的 tuple）；
 2. 相对于每个 partition，一个用于窗口数据流分析的有效窗口机制；
@@ -122,7 +122,7 @@ Trident 的 batch 在某种意义上是一种过载的设施。batch 大小与 p
 
 
 >## _附注_
-<sup>*</sup> 此处译文可能不够准确，有需要的读者请参考原文
+<sup>#</sup> 此处译文可能不够准确，有疑问的读者请参考原文对应内容。
 
 
 [1]: https://xumingming.sinaapp.com/854/twitter-storm-pluggable-scheduler/

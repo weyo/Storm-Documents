@@ -19,7 +19,7 @@
 - [容错性][5]
 - [命令行操作][6]
 - [理解 Storm 拓扑的并行度(parallelism)概念][7]
-- FAQ
+- [FAQ][8]
 
 ---
 
@@ -38,7 +38,7 @@
 
 - 配置 Storm 集群
 - 本地模式
-- 故障排除
+- [故障排除][15]
 - 在生产环境下运行 topology
 - 使用 Maven 构建 Storm 应用
 
@@ -82,14 +82,14 @@
 [5]: https://github.com/weyo/Storm-Documents/blob/master/Manual/zh/Fault-Tolerance.md
 [6]: https://github.com/weyo/Storm-Documents/blob/master/Manual/zh/Command-Line-Client.md
 [7]: https://github.com/weyo/Storm-Documents/blob/master/Manual/zh/Understanding-The-Parallelism-Of-A-Storm-Topology.md
-
+[8]: https://github.com/weyo/Storm-Documents/blob/master/Manual/zh/FAQ.md
 [9]: https://github.com/weyo/Storm-Documents/blob/master/Manual/zh/Trident-Tutorial.md
 [10]: https://github.com/weyo/Storm-Documents/blob/master/Manual/zh/Trident-API-Overview.md
 [11]: https://github.com/weyo/Storm-Documents/blob/master/Manual/zh/Trident-State.md
 [12]: https://github.com/weyo/Storm-Documents/blob/master/Manual/zh/Trident-Spouts.md
 
 
-
+[15]: https://github.com/weyo/Storm-Documents/blob/master/Manual/zh/Troubleshooting.md
 
 
 

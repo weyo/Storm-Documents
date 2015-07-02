@@ -36,10 +36,10 @@
 
 ## 配置与部署
 
-- 配置 Storm 集群
+- [配置 Storm 集群][13]
 - 本地模式
-- [故障排除][15]
-- 在生产环境下运行 topology
+- [问题与解决][15]
+- 在生产环境中运行 topology
 - 使用 Maven 构建 Storm 应用
 
 ---
@@ -50,10 +50,10 @@
 - [常用模式][19]
 - Clojure DSL
 - 使用非 JVM 语言开发
-- 分布式 RPC
-- 事务型拓扑<sup>2</sup>
+- 分布式 RPC<sup>2</sup>
+- 事务型拓扑<sup>3</sup>
 - Storm 与 Kestrel
-- 直接数据流组<sup>3</sup>
+- 直接数据流组<sup>4</sup>
 - Hooks
 - 软件度量
 - Trident tuple 的生命周期<sup>4</sup>
@@ -70,8 +70,8 @@
 
 >## 说明  
 <sup>1</sup> JavaDoc 暂时不在翻译计划之中。  
-<sup>2</sup> 事务型拓扑已经由 Trident 实现，之前的实现已经被标记为 `@Deprecated`，这里不再讨论。  
-<sup>3</sup> 本文官方文档暂未提供。  
+<sup>2</sup> 由于官方文档关于分布式 RPC 部分内容已过时，这里重写了大部分内容  
+<sup>3</sup> 事务型拓扑已经由 Trident 实现，之前的实现已经被标记为 `@Deprecated`，这里不再讨论。  
 <sup>4</sup> 本文官方文档暂未提供。  
 
 
@@ -87,7 +87,7 @@
 [10]: https://github.com/weyo/Storm-Documents/blob/master/Manual/zh/Trident-API-Overview.md
 [11]: https://github.com/weyo/Storm-Documents/blob/master/Manual/zh/Trident-State.md
 [12]: https://github.com/weyo/Storm-Documents/blob/master/Manual/zh/Trident-Spouts.md
-
+[13]: https://github.com/weyo/Storm-Documents/blob/master/Manual/zh/Setting-Up-A-Storm-Cluster.md
 
 [15]: https://github.com/weyo/Storm-Documents/blob/master/Manual/zh/Troubleshooting.md
 

@@ -1,5 +1,5 @@
 # About
-本项目是 Apache Storm 官方文档的中文翻译版，致力于为有实时计算项目需求和对 Apache Storm 感兴趣的同学提供有价值的中文资料，希望能够对大家的工作和学习有所帮助。由于本人水平有限，翻译中仍然存在不少问题，还请大家不吝斧正。
+本项目是 Apache Storm 官方文档的中文翻译版，致力于为有实时流计算项目需求和对 Apache Storm 感兴趣的同学提供有价值的中文资料，希望能够对大家的工作和学习有所帮助。由于本人水平有限，翻译中仍然存在不少问题，还请大家不吝斧正。
 
 >说明：如果没有特殊声明，本项目文档中所述 Storm 版本均为 0.9.x 版本。
 
@@ -37,10 +37,10 @@
 ## 配置与部署
 
 - [配置 Storm 集群][13]
-- 本地模式
+- [本地模式][14]
 - [问题与解决][15]
-- 在生产环境中运行 topology
-- 使用 Maven 构建 Storm 应用
+- [在生产环境中运行 topology][16]
+- [使用 Maven 构建 Storm 应用][17]
 
 ---
 
@@ -70,7 +70,7 @@
 
 >## 说明  
 <sup>1</sup> JavaDoc 暂时不在翻译计划之中。  
-<sup>2</sup> 由于官方文档关于分布式 RPC 部分内容已过时，这里重写了大部分内容  
+<sup>2</sup> 由于官方文档关于分布式 RPC 部分内容已过时，这里重写了大部分内容。  
 <sup>3</sup> 事务型拓扑已经由 Trident 实现，之前的实现已经被标记为 `@Deprecated`，这里不再讨论。  
 <sup>4</sup> 本文官方文档暂未提供。  
 
@@ -88,9 +88,9 @@
 [11]: https://github.com/weyo/Storm-Documents/blob/master/Manual/zh/Trident-State.md
 [12]: https://github.com/weyo/Storm-Documents/blob/master/Manual/zh/Trident-Spouts.md
 [13]: https://github.com/weyo/Storm-Documents/blob/master/Manual/zh/Setting-Up-A-Storm-Cluster.md
-
+[14]: https://github.com/weyo/Storm-Documents/blob/master/Manual/zh/Local-Mode.md
 [15]: https://github.com/weyo/Storm-Documents/blob/master/Manual/zh/Troubleshooting.md
-
-
+[16]: https://github.com/weyo/Storm-Documents/blob/master/Manual/zh/Running-Topologies-On-A-Production-Cluster.md
+[17]: https://github.com/weyo/Storm-Documents/blob/master/Manual/zh/Building-Storm-With-Maven.md
 
 [19]: https://github.com/weyo/Storm-Documents/blob/master/Manual/zh/Common-Topology-Patterns.md

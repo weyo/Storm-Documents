@@ -46,7 +46,7 @@
 
 ## Storm 中级篇
 
-- 序列化
+- [序列化][18]
 - [常用模式][19]
 - Clojure DSL
 - 使用非 JVM 语言开发
@@ -92,5 +92,5 @@
 [15]: https://github.com/weyo/Storm-Documents/blob/master/Manual/zh/Troubleshooting.md
 [16]: https://github.com/weyo/Storm-Documents/blob/master/Manual/zh/Running-Topologies-On-A-Production-Cluster.md
 [17]: https://github.com/weyo/Storm-Documents/blob/master/Manual/zh/Building-Storm-With-Maven.md
-
+[18]: https://github.com/weyo/Storm-Documents/blob/master/Manual/zh/Serialization.md
 [19]: https://github.com/weyo/Storm-Documents/blob/master/Manual/zh/Common-Topology-Patterns.md

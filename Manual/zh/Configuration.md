@@ -9,7 +9,7 @@ Storm 0.7.0 以上版本支持覆写每个 Bolt/Spout 的配置信息。不过�
 1. "topology.debug"
 2. "topology.max.spout.pending"
 3. "topology.max.task.parallelism"
-4. "topology.kryo.register"：由于序列化对拓扑中的所有组件都是可见的，这一项与其他几项稍微有一些不同，详细信息可以参考 [Serialization][3]
+4. "topology.kryo.register"：由于序列化对拓扑中的所有组件都是可见的，这一项与其他几项稍微有一些不同，详细信息可以参考 [Storm 的序列化][3]
 
 Storm 的 Java API 支持两种自定义组件配置信息的方式：
 
@@ -29,8 +29,8 @@ Storm 的 Java API 支持两种自定义组件配置信息的方式：
 
 [1]: https://github.com/apache/storm/blob/master/conf/defaults.yaml
 [2]: http://storm.apache.org/javadoc/apidocs/backtype/storm/StormSubmitter.html
-[3]: http://storm.apache.org/documentation/Serialization.html
+[3]: https://github.com/weyo/Storm-Documents/blob/master/Manual/zh/Serialization.md
 [4]: http://storm.apache.org/javadoc/apidocs/backtype/storm/Config.html
-[5]: http://storm.apache.org/documentation/Setting-up-a-Storm-cluster.html
-[6]: http://storm.apache.org/documentation/Running-topologies-on-a-production-cluster.html
-[7]: http://storm.apache.org/documentation/Local-mode.html
+[5]: https://github.com/weyo/Storm-Documents/blob/master/Manual/zh/Setting-Up-A-Storm-Cluster.md
+[6]: https://github.com/weyo/Storm-Documents/blob/master/Manual/zh/Running-Topologies-On-A-Production-Cluster.md
+[7]: https://github.com/weyo/Storm-Documents/blob/master/Manual/zh/Local-Mode.md

@@ -1,5 +1,5 @@
 # About
-本项目是 Apache Storm 官方文档的中文翻译版，致力于为有实时流计算项目需求和对 Apache Storm 感兴趣的同学提供有价值的中文资料，希望能够对大家的工作和学习有所帮助。由于本人水平有限，翻译中仍然存在不少问题，还请大家不吝斧正。
+本项目是 Apache Storm 官方文档的中文翻译版，致力于为有实时流计算项目需求和对 Apache Storm 感兴趣的同学提供有价值的中文资料，希望能够对大家的工作和学习有所帮助。由于本人水平有限，翻译中仍然存在不少问题，还请大家不吝斧正。如果对本项目有任何问题，欢迎在本项目页面中提出，或者直接给本人发邮件（ivicoco at gmail.com），谢谢。
 
 >说明：如果没有特殊声明，本项目文档中所述 Storm 版本均为 0.9.x 版本。
 
@@ -54,7 +54,7 @@
 - 事务型拓扑<sup>3</sup>
 - Storm 与 Kestrel
 - 直接数据流组<sup>4</sup>
-- Hooks
+- [Hooks][26]
 - 软件度量
 - Trident tuple 的生命周期<sup>4</sup>
 
@@ -94,3 +94,5 @@
 [17]: https://github.com/weyo/Storm-Documents/blob/master/Manual/zh/Building-Storm-With-Maven.md
 [18]: https://github.com/weyo/Storm-Documents/blob/master/Manual/zh/Serialization.md
 [19]: https://github.com/weyo/Storm-Documents/blob/master/Manual/zh/Common-Topology-Patterns.md
+
+[26]: https://github.com/weyo/Storm-Documents/blob/master/Manual/zh/Hooks.md

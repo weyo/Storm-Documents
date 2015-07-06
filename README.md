@@ -7,7 +7,7 @@
 
 # Storm 官方文档索引
 
-原版资料来源（官方网站）：[http://storm.apache.org/documentation/Documentation.html](http://storm.apache.org/documentation/Documentation.html)
+原文资料来源（官方网站）：[http://storm.apache.org/documentation/Documentation.html](http://storm.apache.org/documentation/Documentation.html)
 
 ---
 
@@ -48,15 +48,15 @@
 
 - [序列化][18]
 - [常用模式][19]
-- Clojure DSL
+- Clojure DSL<sup>2</sup>
 - 使用非 JVM 语言开发
-- 分布式 RPC<sup>2</sup>
-- 事务型拓扑<sup>3</sup>
-- Storm 与 Kestrel
-- 直接数据流组<sup>4</sup>
+- 分布式 RPC<sup>3</sup>
+- 事务型拓扑<sup>4</sup>
+- [Storm 与 Kestrel][24]
+- 直接数据流组<sup>5</sup>
 - [Hooks][26]
-- 软件度量
-- Trident tuple 的生命周期<sup>4</sup>
+- [Metrics][27]
+- Trident tuple 的生命周期<sup>5</sup>
 
 ---
 
@@ -70,9 +70,10 @@
 
 >## 说明  
 <sup>1</sup> JavaDoc 暂时不在翻译计划之中。  
-<sup>2</sup> 由于官方文档关于分布式 RPC 部分内容已过时，这里重写了大部分内容。  
-<sup>3</sup> 事务型拓扑已经由 Trident 实现，之前的实现已经被标记为 `@Deprecated`，这里不再讨论。  
-<sup>4</sup> 本文官方文档暂未提供。  
+<sup>2</sup> 由于译者对 Clojure 不是很熟悉，相关内容暂时不提供翻译。  
+<sup>3</sup> 由于官方文档关于分布式 RPC 部分内容已过时，这里重写了部分内容。  
+<sup>4</sup> 事务型拓扑已经由 Trident 实现，之前的实现已经被标记为 `@Deprecated`，这里不再讨论。  
+<sup>5</sup> 本文官方文档暂未提供。  
 
 
 [1]: http://storm.apache.org/javadoc/apidocs/index.html
@@ -95,4 +96,7 @@
 [18]: https://github.com/weyo/Storm-Documents/blob/master/Manual/zh/Serialization.md
 [19]: https://github.com/weyo/Storm-Documents/blob/master/Manual/zh/Common-Topology-Patterns.md
 
+[24]: https://github.com/weyo/Storm-Documents/blob/master/Manual/zh/Storm-and-Kestrel.md
+
 [26]: https://github.com/weyo/Storm-Documents/blob/master/Manual/zh/Hooks.md
+[27]: https://github.com/weyo/Storm-Documents/blob/master/Manual/zh/Metrics.md

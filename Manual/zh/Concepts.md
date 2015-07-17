@@ -116,16 +116,17 @@ Storm 可以通过拓扑来确保每个发送的元组都能得到正确处理�
 
 - [Config.TOPOLOGY_WORKERS][21]：这个配置项用于设置拓扑的工作进程数
 
+---
 
-<sup>1</sup> Partial Key grouping 方式目前仅支持开发版，尚未加入 Storm 的正式发行版，不过可以通过 `CustomStreamGrouping` 间接实现该分组功能，具体的实现可以参考 `PartialKeyGrouping` [源代码][17]。
+><sup>1</sup> Partial Key grouping 方式目前仅支持开发版，尚未加入 Storm 的正式发行版，不过可以通过 `CustomStreamGrouping` 间接实现该分组功能，具体的实现可以参考 `PartialKeyGrouping` [源代码][17]。
 
 ---
 
 [1]: http://storm.apache.org/javadoc/apidocs/backtype/storm/topology/TopologyBuilder.html
-[2]: http://storm.apache.org/documentation/Running-topologies-on-a-production-cluster.html
-[3]: http://storm.apache.org/documentation/Local-mode.html
+[2]: https://github.com/weyo/Storm-Documents/blob/master/Manual/zh/Running-Topologies-On-A-Production-Cluster.md
+[3]: https://github.com/weyo/Storm-Documents/blob/master/Manual/zh/Local-Mode.md
 [4]: http://storm.apache.org/javadoc/apidocs/backtype/storm/topology/OutputFieldsDeclarer.html
-[5]: http://storm.apache.org/documentation/Serialization.html
+[5]: https://github.com/weyo/Storm-Documents/blob/master/Manual/zh/Serialization.md
 [6]: http://storm.apache.org/javadoc/apidocs/backtype/storm/serialization/ISerialization.html
 [7]: http://storm.apache.org/javadoc/apidocs/backtype/storm/Config.html#TOPOLOGY_SERIALIZATIONS
 [8]: http://storm.apache.org/javadoc/apidocs/backtype/storm/spout/SpoutOutputCollector.html

@@ -12,7 +12,7 @@
 
 ## 节点故障时会发生什么？
 
-一个节点（集群中的工作节点，非 Nimbus 所在服务器）故障时，该节点上所有的任务（tasks）都会超时，然后 Nimbus 在检测到超时后悔将所有的这些任务重新分配到其他机器上去。
+一个节点（集群中的工作节点，非 Nimbus 所在服务器）故障时，该节点上所有的任务（tasks）都会超时，然后 Nimbus 在检测到超时后会将所有的这些任务重新分配到其他机器上去。
 
 ---
 
@@ -40,6 +40,6 @@ Nimbus 和 Supervisor 的后台进程本身是设计为快速失败（无论何�
 
 <sup>1</sup>单故障点是指在一个系统中的某个在失效或停止运转后会导致整个系统不能工作的部件，具体概念可以参考[维基百科][3]。
 
-[1]: http://storm.apache.org/documentation/Setting-up-a-Storm-cluster.html
-[2]: http://storm.apache.org/documentation/Guaranteeing-message-processing.html
+[1]: https://github.com/weyo/Storm-Documents/blob/master/Manual/zh/Setting-Up-A-Storm-Cluster.md
+[2]: https://github.com/weyo/Storm-Documents/blob/master/Manual/zh/Guaranteeing-Message-Processing.md
 [3]: https://en.wikipedia.org/wiki/Single_point_of_failure

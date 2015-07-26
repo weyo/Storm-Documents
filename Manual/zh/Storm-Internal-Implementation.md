@@ -5,7 +5,7 @@
 - [代码库架构][1]
 - 拓扑的生命周期<sup>1</sup>
 - 消息传递的实现<sup>1</sup>
-- 应答框架的实现
+- [应答框架的实现][4]
 - [Metrics][5]
 - 事务型拓扑的工作机制<sup>1</sup>
 - 单元测试<sup>2</sup>
@@ -22,4 +22,5 @@
 <sup>2</sup> 该文官方文档暂未提供。  
 
 [1]: https://github.com/weyo/Storm-Documents/blob/master/Manual/zh/Structure-Of-The-Codebase.md
+[4]: https://github.com/weyo/Storm-Documents/blob/master/Manual/zh/Acking-Framework-Implementation.md
 [5]: https://github.com/weyo/Storm-Documents/blob/master/Manual/zh/Metrics.md

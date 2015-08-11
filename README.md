@@ -67,7 +67,7 @@
 ## Storm 高级篇
 
 - 为 Storm 定义非 JVM 语言 DSL
-- 多语言接口协议（如何为其他语言定义接口）
+- [多语言接口协议（如何为其他语言定义接口）][30]
 - [技术实现相关文档][31]
 
 ---
@@ -107,4 +107,5 @@
 [26]: https://github.com/weyo/Storm-Documents/blob/master/Manual/zh/Hooks.md
 [27]: https://github.com/weyo/Storm-Documents/blob/master/Manual/zh/Metrics.md
 
+[30]: https://github.com/weyo/Storm-Documents/blob/master/Manual/zh/Multilang-Protocol.md
 [31]: https://github.com/weyo/Storm-Documents/blob/master/Manual/zh/Storm-Internal-Implementation.md

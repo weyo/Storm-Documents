@@ -53,7 +53,7 @@
 - [序列化][18]
 - [常用模式][19]
 - Clojure DSL<sup>2</sup>
-- 使用非 JVM 语言开发
+- [使用非 JVM 语言开发][21]
 - [分布式 RPC][22]<sup>3</sup>
 - 事务型拓扑<sup>4</sup>
 - [Storm 与 Kestrel][24]
@@ -100,6 +100,7 @@
 [18]: https://github.com/weyo/Storm-Documents/blob/master/Manual/zh/Serialization.md
 [19]: https://github.com/weyo/Storm-Documents/blob/master/Manual/zh/Common-Topology-Patterns.md
 
+[21]: https://github.com/weyo/Storm-Documents/blob/master/Manual/zh/Using-Non-JVM-Languages-With-Storm.md
 [22]: https://github.com/weyo/Storm-Documents/blob/master/Manual/zh/Distributed-RPC.md
 
 [24]: https://github.com/weyo/Storm-Documents/blob/master/Manual/zh/Storm-and-Kestrel.md

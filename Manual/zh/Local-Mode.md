@@ -26,6 +26,6 @@ cluster.shutdown();
 2. **Config.TOPOLOGY_DEBUG**：此配置项设置为 true 时 Storm 会打印出 spout 或者 bolt 每一次发送消息的日志记录。这个功能对于调试拓扑很有用。
 
 
-[1]: http://storm.apache.org/documentation/Running-topologies-on-a-production-cluster.html
+[1]: https://github.com/weyo/Storm-Documents/blob/master/Manual/zh/Running-Topologies-On-A-Production-Cluster.md
 [2]: http://storm.apache.org/javadoc/apidocs/backtype/storm/StormSubmitter.html
 [3]: http://storm.apache.org/javadoc/apidocs/backtype/storm/Config.html

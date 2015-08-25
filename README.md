@@ -41,6 +41,7 @@
 ## 配置与部署
 
 - [配置 Storm 集群][13]
+- [配置开发环境][32]
 - [本地模式][14]
 - [问题与解决][15]
 - [在生产环境中运行 topology][16]
@@ -93,6 +94,7 @@
 [11]: https://github.com/weyo/Storm-Documents/blob/master/Manual/zh/Trident-State.md
 [12]: https://github.com/weyo/Storm-Documents/blob/master/Manual/zh/Trident-Spouts.md
 [13]: https://github.com/weyo/Storm-Documents/blob/master/Manual/zh/Setting-Up-A-Storm-Cluster.md
+[32]: https://github.com/weyo/Storm-Documents/blob/master/Manual/zh/Setting-Up-A-Development-Environment.md
 [14]: https://github.com/weyo/Storm-Documents/blob/master/Manual/zh/Local-Mode.md
 [15]: https://github.com/weyo/Storm-Documents/blob/master/Manual/zh/Troubleshooting.md
 [16]: https://github.com/weyo/Storm-Documents/blob/master/Manual/zh/Running-Topologies-On-A-Production-Cluster.md

@@ -43,6 +43,8 @@ storm jar path/to/allmycode.jar org.me.MyTopology arg1 arg2 arg3
 
 `storm jar` 会将 jar 提交到集群中，同时配置 `StormSubmitter` 类来与正确的集群建立连接。在上面的例子里，上传 jar 包之后，`storm jar` 就会使用 “arg1”、“arg2”、“arg3” 三个参数来运行 `org.me.MyTopology` 的 main 函数。
 
+关于如何配置 Storm 客户端与 Storm 集群的交互的详细信息，请参阅[配置开发环境](https://github.com/weyo/Storm-Documents/blob/master/Manual/zh/Setting-Up-A-Development-Environment.md)一文。
+
 ## 常用配置
 
 拓扑中有很多参数可以设置。你可以在[这里][5]找到完整的配置项列表。其中，以 “TOPOLOGY” 开头的参数可以被拓扑中的对应配置项覆盖（其他参数是集群的配置参数，不能被直接覆盖）。以下是拓扑中的一些常用参数：
@@ -78,4 +80,5 @@ storm jar path/to/allmycode.jar org.me.MyTopology arg1 arg2 arg3
 [2]: http://storm.apache.org/javadoc/apidocs/backtype/storm/topology/TopologyBuilder.html
 [3]: http://storm.apache.org/javadoc/apidocs/backtype/storm/StormSubmitter.html
 [4]: http://maven.apache.org/plugins/maven-assembly-plugin/
-[5]: http://storm.apache.org/documentation/Running-topologies-on-a-production-cluster.html
+[5]: http://storm.apache.org/javadoc/apidocs/backtype/storm/Config.html
+[6]: https://github.com/weyo/Storm-Documents/blob/master/Manual/zh/Guaranteeing-Message-Processing.md

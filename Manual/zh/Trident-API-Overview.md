@@ -228,7 +228,7 @@ mystream.chainedAgg()
 
 ### stateQuery 与 partitionPersist
 
-stateQuery 与 partitionPersist 会分别查询、更新 state 数据源。你可以参考 [Trident state doc][1] 来了解如何使用它们。
+stateQuery 与 partitionPersist 会分别查询、更新 state 数据源。你可以参考 [Trident State 文档][1] 来了解如何使用它们。
 
 ### projection
 
@@ -265,7 +265,7 @@ mystream.aggregate(new Count(), new Fields("count"))
 
 与 partitionAggregate 一样，aggregate 的聚合器也可以进行链式处理。然而，如果你在一个处理链中同时使用了 `CombinerAggregator` 和非 `CombinerAggregator`，Trident 就不能对部分聚类操作进行优化了。
 
-想要了解更多使用 persistentAggregate 的方法，可以参考 [Trident state doc][2] 一文。
+想要了解更多使用 persistentAggregate 的方法，可以参考 [Trident State 文档][1] 一文。
 
 ## 对分组数据流的操作
 
@@ -308,7 +308,6 @@ a” 和 “b” 域与 stream1 的 “val1” 和 “val2” 域对应；而 �
 你可以使用 partitionPersist 和 stateQuery 来实现这个过程。过去一段时间内的 tuple 会以 join 域为关键字被保存到一个 state 源中。然后就可以使用 stateQuery 查询 join 域来实现这个“联结”（join）的过程。
 
 
-[1]: http://storm.apache.org/documentation/Trident-state.html
-[2]: http://storm.apache.org/documentation/Trident-state.html
+[1]: https://github.com/weyo/Storm-Documents/blob/master/Manual/zh/Trident-State.md
 [3]: http://storm.apache.org/documentation/images/grouping.png
 [4]: https://github.com/apache/storm/blob/master/storm-core/src/jvm/storm/trident/state/map/MapState.java

@@ -78,29 +78,30 @@ Storm 中支持的命令包括：
 
 语法：`storm nimbus`
 
-启动 nimbus 后台进程。该命令应该在 [daemontools][3] 或者 [monit][4] 这样的工具监控下执行。详细信息请参考[配置 Storm 集群][4]一文。
+启动 nimbus 后台进程。该命令应该在 [daemontools][3] 或者 [monit][4] 这样的工具监控下执行。详细信息请参考[配置 Storm 集群][5]一文。
 
 ## supervisor
 
 语法：`storm supervisor`
 
-启动 supervisor 后台进程。该命令应该在 [daemontools][3] 或者 [monit][4] 这样的工具监控下执行。详细信息请参考[配置 Storm 集群][4]一文。
+启动 supervisor 后台进程。该命令应该在 [daemontools][3] 或者 [monit][4] 这样的工具监控下执行。详细信息请参考[配置 Storm 集群][5]一文。
 
 ## ui
 
 语法：`storm ui`
 
-启动 UI 后台进程。UI 提供了一个访问 Storm 集群的 Web 接口，其中包含有运行中的拓扑的详细信息。该命令应该在 [daemontools][3] 或者 [monit][4] 这样的工具监控下执行。详细信息请参考[配置 Storm 集群][4]一文。
+启动 UI 后台进程。UI 提供了一个访问 Storm 集群的 Web 接口，其中包含有运行中的拓扑的详细信息。该命令应该在 [daemontools][3] 或者 [monit][4] 这样的工具监控下执行。详细信息请参考[配置 Storm 集群][5]一文。
 
 ## drpc
 
 语法：`storm drpc`
 
-启动 DRPC 后台进程。该命令应该在 [daemontools][3] 或者 [monit][4] 这样的工具监控下执行。详细信息请参考[分布式 RPC][5]一文。
+启动 DRPC 后台进程。该命令应该在 [daemontools][3] 或者 [monit][4] 这样的工具监控下执行。详细信息请参考[分布式 RPC][6]一文。
 
 
-[1]: http://storm.apache.org/documentation/Setting-up-a-development-environment.html
+[1]: https://github.com/weyo/Storm-Documents/blob/master/Manual/zh/Setting-Up-A-Development-Environment.md
 [2]: http://storm.apache.org/javadoc/apidocs/backtype/storm/StormSubmitter.html
 [3]: http://cr.yp.to/daemontools.html
 [4]: http://mmonit.com/monit/
-[5]: http://storm.apache.org/documentation/Distributed-RPC.html
+[5]: https://github.com/weyo/Storm-Documents/blob/master/Manual/zh/Setting-Up-A-Storm-Cluster.md
+[6]: https://github.com/weyo/Storm-Documents/blob/master/Manual/zh/Distributed-RPC.md

@@ -66,7 +66,7 @@ Spout 中另外两个关键方法是 `ack` 和 `fail`，他们分别用于在 St
 
 Bolt 的关键方法是 `execute` 方法。`execute` 方法负责接收一个元组作为输入，并且使用 [OutputCollector][11] 对象发送新的元组。如果有消息可靠性保障的需求，Bolt 必须为它所处理的每个元组调用 `OutputCollector` 的 `ack` 方法，以便 Storm 能够了解元组是否处理完成（并且最终决定是否可以响应最初的 Spout 输出元组树）。一般情况下，对于每个输入元组，在处理之后可以根据需要选择不发送还是发送多个新元组，然后再响应（ack）输入元组。[IBasicBolt][13] 接口能够实现元组的自动应答。
 
-在 Bolt 中启动新线程来进行异步处理是一种非常好的方式，因为 [OutputCollector][11] 是线程安全的对象，可以在任意时刻被调用（此处译者保留意见，由于 Storm 的并发设计和集群的弹性扩展机制，在 Bolt 中新建的线程可能存在一定的不可控风险——译者注）。
+请注意 [OutputCollector][11] 不是线程安全的对象，所有的 emit、ack 和 fail 操作都需要在同一个线程中进行处理。更多信息请参考[问题与解决][22]一文。
 
 **相关资料**
 
@@ -143,3 +143,4 @@ Storm 可以通过拓扑来确保每个发送的元组都能得到正确处理�
 [19]: http://storm.apache.org/javadoc/apidocs/backtype/storm/task/TopologyContext.html
 [20]: http://storm.apache.org/javadoc/apidocs/backtype/storm/task/CoordinatedBolt.html
 [21]: http://storm.apache.org/javadoc/apidocs/backtype/storm/Config.html#TOPOLOGY_WORKERS
+[22]: https://github.com/weyo/Storm-Documents/blob/master/Manual/zh/Troubleshooting.md

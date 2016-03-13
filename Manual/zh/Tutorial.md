@@ -53,3 +53,50 @@ Topology 可以看作一个由若干个 Spout 和 Bolt 组成的网络打包成�
 如果不主动终止，Storm 中的拓扑会一直运行下去。Storm 还会自动重新分派执行失败的任务，确保即使在机器故障、消息丢失的场景下也不会发生数据丢失的情况。
 
 ## 数据模型
+
+Storm 的数据模型是 tuple。Tuple 是一个包含一组值的列表，这些值可以是任意类型的对象。Storm 支持所有的基础类型对象，包括字符串、字节数组等。如果要使用其他类型的对象，可以通过[序列化](https://github.com/weyo/Storm-Documents/blob/master/Manual/zh/Serialization.md)来实现。
+
+拓扑的每个节点（组件）都必须声明它输出的 tuple 的域类型。例如，下面的 Bolt 就为它所输出的两个 tuple 声明了 “double” 和 “triple” 两个域。
+
+```
+public class DoubleAndTripleBolt extends BaseRichBolt {
+    private OutputCollectorBase _collector;
+
+    @Override
+    public void prepare(Map conf, TopologyContext context, OutputCollectorBase collector) {
+        _collector = collector;
+    }
+
+    @Override
+    public void execute(Tuple input) {
+        int val = input.getInteger(0);
+        _collector.emit(input, new Values(val*2, val*3));
+        _collector.ack(input);
+    }
+
+    @Override
+    public void declareOutputFields(OutputFieldsDeclarer declarer) {
+        declarer.declare(new Fields("double", "triple"));
+    }
+}
+```
+
+在上面的例子里，`declareOutputFields` 方法声明了输出域`["double", "triple"]`。我们将在后文继续讨论 Bolt 的其他部分。
+
+## 简单的拓扑示例
+
+我们来看一个简单的拓扑示例，这是 [storm-starter](https://github.com/apache/storm/blob/master/examples/storm-starter) 项目中的 `ExclamationTopology`。
+
+```
+TopologyBuilder builder = new TopologyBuilder();
+builder.setSpout("words", new TestWordSpout(), 10);
+builder.setBolt("exclaim1", new ExclamationBolt(), 3)
+        .shuffleGrouping("words");
+builder.setBolt("exclaim2", new ExclamationBolt(), 2)
+        .shuffleGrouping("exclaim1");
+```
+
+这个拓扑包含有一个 Spout 和两个 Bolt。这里的 Spout 负责输出单词（words），每个 Bolt 负责在它们接收到的单词末尾添加一个“!!!”。这些节点是按顺序排列的：Spout 将单词发送到第一个 Bolt，然后第一个 Bolt 在简单处理后将单词发送到第二个 Bolt。例如，如果 Spout 输出的 tuple 是 ["bob"] 和 ["john"]，那么最终第二个 Bolt 输出的单词就是 ["bob!!!!!!"] 和 ["john!!!!!!"]。
+
+这段代码使用 `setSpout` 和 `setBolt` 方法定义了拓扑的节点。这两个方法一般需要三个输入参数：节点的 ID（在整个拓扑中唯一）、包含有处理逻辑的对象、以及节点的并行度。在这个例子中，Spout 的 ID 是 “words”，两个 Bolt 的 ID 分别是 “exclaim1” 和 “exclaim2”。这里实现处理逻辑的对象主要是实现了 [IRichSpout](http://storm.apache.org/javadoc/apidocs/backtype/storm/topology/IRichSpout.html) 接口的 Spout 和实现了 [IRichBolt](http://storm.apache.org/javadoc/apidocs/backtype/storm/topology/IRichBolt.html) 接口的 Bolt。最后一个参数——节点的并行度——是可选的。这个参数表示在整个集群中会有多少个线程并发执行该组件。如果不填这个参数，Storm 默认会将其设置为1。
+

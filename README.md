@@ -10,7 +10,9 @@
 
 # Storm 官方文档索引
 
-原文资料来源（官方网站）：[http://storm.apache.org/documentation/Documentation.html](http://storm.apache.org/documentation/Documentation.html)
+原文资料来源（官方网站）：
+~~[http://storm.apache.org/documentation/Documentation.html](http://storm.apache.org/documentation/Documentation.html)~~
+[http://storm.apache.org/releases/0.9.6/Documentation.html](http://storm.apache.org/releases/0.9.6/Documentation.html)
 
 ---
 

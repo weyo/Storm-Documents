@@ -100,3 +100,4 @@ builder.setBolt("exclaim2", new ExclamationBolt(), 2)
 
 这段代码使用 `setSpout` 和 `setBolt` 方法定义了拓扑的节点。这两个方法一般需要三个输入参数：节点的 ID（在整个拓扑中唯一）、包含有处理逻辑的对象、以及节点的并行度。在这个例子中，Spout 的 ID 是 “words”，两个 Bolt 的 ID 分别是 “exclaim1” 和 “exclaim2”。这里实现处理逻辑的对象主要是实现了 [IRichSpout](http://storm.apache.org/javadoc/apidocs/backtype/storm/topology/IRichSpout.html) 接口的 Spout 和实现了 [IRichBolt](http://storm.apache.org/javadoc/apidocs/backtype/storm/topology/IRichBolt.html) 接口的 Bolt。最后一个参数——节点的并行度——是可选的。这个参数表示在整个集群中会有多少个线程并发执行该组件。如果不填这个参数，Storm 默认会将其设置为1。
 
+`setBolt` 方法返回了一个 [InputDeclarer](http://storm.apache.org/javadoc/apidocs/backtype/storm/topology/InputDeclarer.html) 对象，通过这个对象可以进一步定义 Bolt 的输入信息。在这个例子里，“exclaim1” 组件使用随机分组（shuffle grouping）表明它会读取 “words” 组件输出的所有 tuple；同样，“exclaim2” 组件也使用随机分组来接收 “exclaim1” 组件输出的所有 tuple。随机分组（shuffle grouping）的含义是 tuple 会被随机发送到待接收 bolt 的任务中。组件之间的数据分组方式有很多种，详细内容请参考[基础概念](https://github.com/weyo/Storm-Documents/blob/master/Manual/zh/Concepts.md)一文。

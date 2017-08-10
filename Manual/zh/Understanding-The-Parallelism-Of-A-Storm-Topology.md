@@ -119,6 +119,6 @@ $ storm rebalance mytopology -n 5 -e blue-spout=3 -e yellow-bolt=10
 [5]: http://storm.apache.org/javadoc/apidocs/backtype/storm/topology/TopologyBuilder.html
 [6]: http://storm.apache.org/javadoc/apidocs/backtype/storm/Config.html#TOPOLOGY_TASKS
 [7]: http://storm.apache.org/javadoc/apidocs/backtype/storm/topology/ComponentConfigurationDeclarer.html
-[8]: http://storm.apache.org/documentation/images/example-of-a-running-topology.png
+[8]: http://storm.apache.org/releases/0.9.6/images/example-of-a-running-topology.png
 [9]: http://storm.apache.org/javadoc/apidocs/backtype/storm/Config.html#TOPOLOGY_MAX_TASK_PARALLELISM
 [10]: http://storm.apache.org/javadoc/apidocs/backtype/storm/Config.html#setMaxTaskParallelism(int)

@@ -309,5 +309,5 @@ a” 和 “b” 域与 stream1 的 “val1” 和 “val2” 域对应；而 �
 
 
 [1]: https://github.com/weyo/Storm-Documents/blob/master/Manual/zh/Trident-State.md
-[3]: http://storm.apache.org/documentation/images/grouping.png
+[3]: http://storm.apache.org/releases/0.9.6/images/grouping.png
 [4]: https://github.com/apache/storm/blob/master/storm-core/src/jvm/storm/trident/state/map/MapState.java

@@ -250,9 +250,9 @@ Trident 拓扑会被编译成一种尽可能和普通拓扑有着同样的运行
 Trident 让实时计算变得非常简单。你已经看到了高吞吐量的数据流处理、状态操作以及低延时查询处理是怎样通过 Trident 的 API 来实现无缝结合的。总而言之，Trident 可以让你以一种更加自然，同时仍然保持着很好的性能的方式实现实时计算。
 
 
-[1]: http://storm.apache.org/documentation/images/batched-stream.png
+[1]: http://storm.apache.org/releases/0.9.6/images/batched-stream.png
 [2]: https://github.com/nathanmarz/trident-memcached
 [3]: http://storm.apache.org/documentation/Trident-state
 [4]: https://github.com/nathanmarz/trident-memcached/blob/master/src/jvm/trident/memcached/MemcachedState.java
-[5]: http://storm.apache.org/documentation/images/trident-to-storm1.png
-[6]: http://storm.apache.org/documentation/images/trident-to-storm2.png
+[5]: http://storm.apache.org/releases/0.9.6/images/trident-to-storm1.png
+[6]: http://storm.apache.org/releases/0.9.6/images/trident-to-storm2.png

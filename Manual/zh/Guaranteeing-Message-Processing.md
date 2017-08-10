@@ -180,11 +180,11 @@ Acker 实际上并不会直接跟踪 tuple 树。对于一棵包含数万个 tup
 
 
 
-[1]: http://storm.apache.org/documentation/images/tuple_tree.png
+[1]: http://storm.apache.org/releases/0.9.6/images/tuple_tree.png
 [2]: http://storm.apache.org/javadoc/apidocs/backtype/storm/Config.html#TOPOLOGY_MESSAGE_TIMEOUT_SECS
 [3]: http://storm.apache.org/javadoc/apidocs/backtype/storm/spout/ISpout.html
-[4]: http://storm.apache.org/documentation/images/tuple-dag.png
+[4]: http://storm.apache.org/releases/0.9.6/images/tuple-dag.png
 [5]: http://storm.apache.org/documentation/Transactional-topologies.html
 [6]: http://storm.apache.org/javadoc/apidocs/backtype/storm/Config.html#TOPOLOGY_ACKERS
-[7]: http://storm.apache.org/documentation/images/ack_tree.png
+[7]: http://storm.apache.org/releases/0.9.6/images/ack_tree.png
 [8]: https://github.com/weyo/Storm-Documents/blob/master/Manual/zh/Fault-Tolerance.md

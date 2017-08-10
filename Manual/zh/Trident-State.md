@@ -330,7 +330,7 @@ Trident 也提供了一个 [CachedMap][9] 用于实现 K-V map 的自动 LRU 缓
 [1]: https://github.com/weyo/Storm-Documents/blob/master/Manual/zh/Trident-Tutorial.md
 [2]: https://github.com/apache/storm/tree/master/external/storm-kafka/src/jvm/storm/kafka/trident/TransactionalTridentKafkaSpout.java
 [3]: https://github.com/apache/storm/tree/master/external/storm-kafka/src/jvm/storm/kafka/trident/OpaqueTridentKafkaSpout.java
-[4]: http://storm.apache.org/documentation/images/spout-vs-state.png
+[4]: http://storm.apache.org/releases/0.9.6/images/spout-vs-state.png
 [5]: https://github.com/apache/storm/blob/master/storm-core/src/jvm/storm/trident/testing/MemoryMapState.java
 [6]: https://github.com/nathanmarz/trident-memcached/blob/master/src/jvm/trident/memcached/MemcachedState.java
 [7]: https://github.com/apache/storm/blob/master/storm-core/src/jvm/storm/trident/state/OpaqueValue.java

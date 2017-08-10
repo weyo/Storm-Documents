@@ -115,5 +115,5 @@ StormSubmitter.submitTopology("drpc-demo", conf, builder.createTopology());
 请参考[Trident 教程][2]一文中计算指定 URL 的 Reach 数的例子。
 
 
-[1]: http://storm.apache.org/documentation/images/drpc-workflow.png
+[1]: http://storm.apache.org/releases/0.9.6/images/drpc-workflow.png
 [2]: https://github.com/weyo/Storm-Documents/blob/master/Manual/zh/Trident-Tutorial.md#reach
